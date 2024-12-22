@@ -7,7 +7,7 @@ Already I've learned a great deal.
 * Be advised that this is under active development and all is subject to change
 
 ## Progress Log
-* [Progress Log File](./RPG System Practice/SupportingDocuments/ProgressLog.md)
+* [Progress Log File](.RPG System Practice/SupportingDocuments/ProgressLog.md)
 # The goal
 Ideally, by building a simple RPG system backend I will
 learn ways to better share information back and forth between
