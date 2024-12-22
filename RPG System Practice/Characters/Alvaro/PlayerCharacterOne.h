@@ -1,0 +1,18 @@
+﻿#pragma once
+#include "../Character.h"
+class PlayerCharacterOne
+{
+public:
+    Character Alvaro =
+     {
+        "Alvaro",         // name of character
+        1,                // Character level
+        0,                // Character Experience
+        Character::Rogue, // class of character
+        {
+            8, 10, 8,  // strength, dexterity, wisdom,
+            10, 25, 20, 20 // intelligence, speed, health, maxHealth.
+        },
+        {} // Inventory
+     };
+};
