@@ -164,25 +164,36 @@ struct CombatLoop
         }
 
         // Check if selected item is a weapon
-        auto& selectedItem = character.inventory[selectedIndex - 1];    // changed to auto instead of Item&
-        std::cout << "You selected item: " << selectedItem.name << "\n";  // Debugging line, which triggers fine, selection works
+        Item* selectedItem = character.inventory[selectedIndex - 1];    // changed to auto instead of Item& reverted
+        
+        std::cout << "You selected item: " << selectedItem->name << "\n";  // Debugging line, which triggers fine, selection works
+        
+       
+        selectedItem->printDetails();
         // if you try to select the book in slot 2 this triggers. which makes sense. So selection is a weapon
-        if (selectedItem.itemType != Item::ItemType::Weapon)
+        if (selectedItem->itemType != Item::ItemType::Weapon)
         {
             std::cout << "Selected item is not a weapon. Please select a valid weapon.\n";
             return nullptr;
         }
-        
+        std::cout << "Item type: " << (selectedItem->itemType == Item::ItemType::Weapon ? "Weapon" : "Not Weapon") << "\n";
         /* Cast to Weapon* and return
          * Something has to be wrong with this... it just doesn't work as it should. it seems like its always returning
          * a nullptr. But why? I'm going to try dynamic casting before returning.
          * return dynamic_cast<Weapon*>(&selectedItem); // old code
          * if (auto weapon = dynamic_cast<Weapon*>(seekItem.get())) this code snipped is used in main. im going to adapt it
          */
-        std::cout << dynamic_cast<Weapon*>(&selectedItem) << "\n"; // lol see what this does. Probs a memory address?
+        
+        // lol see what this does. Probs a memory address?
+        //std::cout << dynamic_cast<Weapon*>(&selectedItem) << " printed out the dynamic cast\n"; 
         // indeed, it yields 00000000000000. So the dynamic cast doesn't work. But why? I dynamic-cast this same thing
         // elsewhere and it works fine.
-        return dynamic_cast<Weapon*>(&selectedItem); // adding breakpoint
+
+        Weapon* chosenWeapon = dynamic_cast<Weapon*>(selectedItem);
+
+        std::cout << "Dynamic cast to chosenWeapon result: " << chosenWeapon << "\n";
+        
+        return dynamic_cast<Weapon*>(selectedItem); // adding breakpoint
     }
     /**
      * This function should get the head of the turn order and print options for what weapon

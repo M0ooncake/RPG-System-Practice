@@ -3,6 +3,9 @@
 
 struct Weapon : public Item
 {
+    ~Weapon() override
+    = default;
+
     int attackPower;
     int range;
 

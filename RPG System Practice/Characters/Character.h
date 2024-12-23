@@ -25,7 +25,7 @@ struct Character
     classType characterClass; // Declare a member variable of this enum type
 
     Stats stats;
-    std::vector<Item> inventory; /* Make it a vector, so it can be expanded or
+    std::vector<Item*> inventory; /* Make it a vector, so it can be expanded or
                                     shrunk without issue
                                  */
 };

@@ -47,7 +47,7 @@ Weapon Weapon::CreateWeapon(const std::string& name, int value, int weight, Weap
             range = 10;
         break;
         default:
-            std::cerr << "Invalid WeaponType!" << std::endl;
+            std::cerr << "Invalid WeaponType!" << "\n";
             break;
     }
 

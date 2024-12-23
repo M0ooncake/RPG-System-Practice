@@ -49,10 +49,19 @@ void DisplayCharacter(const Character& character)
  */
 void AddItemToInventory(Character& character, const Item& item)
 {
+    // chatGPT has recommend a change. Store pointers to the object, not just pushing the object
     
-    character.inventory.push_back(item);
+    // Get the item from within the registry, this seems like an odd choice
+    // as if there are thousands of items would this not be highly inefficient?
+    auto itemPointer = itemRegistry[item.id].get();
+    
+    // Push the pointer into the inventory, so we preserve the original item and its type info
+    character.inventory.push_back(itemPointer);
     std::cout << "<======================================>\n";
     std::cout << item.name << " Added to " << character.name << "'s inventory. \n";
+    /*character.inventory.push_back(item);
+    std::cout << "<======================================>\n";
+    std::cout << item.name << " Added to " << character.name << "'s inventory. \n";*/
 }
 
 /**
@@ -68,15 +77,15 @@ void RemoveItemFromInventory(Character& character, const std::string& itemName)
     auto it = std::find_if(    // type auto in case that changes over time
         character.inventory.begin(),           // i.e weapon, consumable
         character.inventory.end(),
-        [&itemName](const Item& item)
+        [&itemName](const Item* item)
         {
-            return item.name == itemName;
+            return item->name == itemName;
         }
     );
     // If the item is found, "Cast it into the fire! Destroy it!"
     if (it != character.inventory.end())
     {
-        std::cout << "Removing item: " << it->name << " from inventory.\n";
+        std::cout << "Removing item: " << (*it)->name << " from inventory.\n";
         character.inventory.erase(it);
     }
     else
@@ -104,9 +113,9 @@ void DisplayCharacterInventory(const Character& character)
     for (unsigned long long i = 0; i < character.inventory.size(); ++i)
     {                                                                
         const auto& item = character.inventory[i];
-        std::cout << "||   " << (i + 1) << ". " << item.name
-                  << "||  (Value: " << item.value
-                  << "|| , Weight: " << item.weight << ")\n";
+        std::cout << "||   " << (i + 1) << ". " << item->name
+                  << "||  (Value: " << item->value
+                  << "|| , Weight: " << item->weight << ")\n";
     }
     
 }
@@ -124,9 +133,9 @@ void DisplayCharacterWeapons(const Character& character)
     for (unsigned long long i = 0; i < character.inventory.size(); ++i)
     {
         const auto& weapon = character.inventory[i];
-        if(weapon.itemType == Item::ItemType::Weapon)   // only print if the item is a weapon
+        if(weapon->itemType == Item::ItemType::Weapon)   // only print if the item is a weapon
         {
-            std::cout << "||   " << (i + 1) << ". " << weapon.name << "\n"; // print weapons
+            std::cout << "||   " << (i + 1) << ". " << weapon->name << "\n"; // print weapons
                 
         }
     }

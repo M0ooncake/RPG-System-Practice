@@ -71,6 +71,14 @@ int main(int argc, char* argv[])
     {
         std::cout << "ERROR: Item not found\n";
     }
+    
+    auto findItem = GetItemById(book.id);
+    {
+        if (auto book2 = dynamic_cast<Item*>(findItem.get()))
+        {
+            book2->printDetails();
+        }
+    }
 
     // Attempt to remove a single dagger.
     RemoveItemFromInventory(playerOneAlvaro->Alvaro, dagger.name);

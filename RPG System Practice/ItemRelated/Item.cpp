@@ -7,16 +7,36 @@ int itemIdCounter = 0; // Counter for Unique ID's
 
 std::unordered_map<int, std::unique_ptr<Item>> itemRegistry;
 
+
+/**
+ * Converts a ItemType enum value to its string representation.
+ * @param itemType The enum value to convert.
+ * @return A string representing the items type.
+ */
+std::string ItemTypeToString(Item::ItemType itemType) {
+    switch (itemType) {
+        case Item::ItemType::Weapon: return "Weapon";
+        case Item::ItemType::Consumable: return "Consumable";
+        case Item::ItemType::Armor : return "Armor";
+        case Item::ItemType::Misc: return "Misc";
+        default: return "Unknown";
+        
+    }
+}
+
 void Item::printDetails() const
 {
     std::cout << "<======================================>\n";
     std::cout << "|| Item Name: " << name << "\n"
             << "|| ID: " << id << "\n"
             << "|| Value: " << value << "\n"
-            << "|| Weight: " << weight << "\n";
+            << "|| Weight: " << weight << "\n"
+            << "|| Item Type: " << ItemTypeToString(itemType) << "\n";
     
 }
 
+Item::~Item()
+= default;
 
 
 /**
