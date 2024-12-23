@@ -1,7 +1,12 @@
-D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\Characters\Alvaro\CharacterAlvaro.cpp;D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\x64\Debug\CharacterAlvaro.obj
-D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\Characters\Character.cpp;D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\x64\Debug\Character.obj
-D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\Characters\Stats.cpp;D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\x64\Debug\Stats.obj
-D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\ItemRelated\Item.cpp;D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\x64\Debug\Item.obj
-D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\ItemRelated\Weapons\Weapon.cpp;D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\x64\Debug\Weapon.obj
-D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\main.cpp;D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\x64\Debug\main.obj
-D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\Supportive\Turns\TurnOrder.cpp;D:\Learning\Term 5-6\RPG System Practice\RPG System Practice\x64\Debug\TurnOrder.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Characters\PlayerCharacterFour\PlayerCharacterFour.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\PlayerCharacterFour.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Characters\PlayerCharacterOne\PlayerCharacterOne.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\PlayerCharacterOne.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Characters\Character.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\Character.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Characters\PlayerCharacterThree\PlayerCharacterThree.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\PlayerCharacterThree.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Characters\PlayerCharacterTwo\PlayerCharacterTwo.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\PlayerCharacterTwo.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Characters\Stats.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\Stats.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\ItemRelated\Item.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\Item.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\ItemRelated\Weapons\Weapon.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\Weapon.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\main.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\main.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Supportive\CombatRelated\AttackAction.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\AttackAction.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Supportive\CombatRelated\CombatLoop.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\CombatLoop.obj
+D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\Supportive\Turns\TurnOrder.cpp;D:\Learning\Term 5-6\RPG-System-Practice\RPG System Practice\x64\Debug\TurnOrder.obj

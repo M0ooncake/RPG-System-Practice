@@ -8,7 +8,7 @@ void Weapon::printDetails() const
     std::cout << "|| Attack Power: " << attackPower << "\n"
             << "|| Range: " << range << "\n"
             << "|| Weapon Type: " << static_cast<int>(weaponType) << "\n";
-    std::cout << "<======================================>\n";
+    
 }
 
 // Function to create a weapon based on its type

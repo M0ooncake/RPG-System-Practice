@@ -41,6 +41,8 @@ void RemoveItemFromInventory(Character& character, const std::string& itemName);
 
 void DisplayCharacterInventory(const Character& character);
 
-void ApplyDamage(const Character& character, const int Damage);
+void DisplayCharacterWeapons(const Character& character);
 
-void ApplyHeal(const Character& character, const int Healing);
+void ApplyDamageToCharacter(const Character& character, const int Damage);
+
+void ApplyHealToCharacter(const Character& character, const int Healing);

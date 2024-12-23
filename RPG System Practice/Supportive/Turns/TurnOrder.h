@@ -33,9 +33,14 @@ public:
     // Insert a node at the end
     void InsertAtEnd(Character& characterRef);
 
+    // Logic to insert a character either ahead, or in front of another character
+    void InsertBasedOffSpeed(Character& characterRef);
+    
     // Print the existing Circular list
     void PrintList();
 
     // Logic to point to the next entry in the list
     void AdvanceTurn();
+
+    void GetActiveTurn();
 };

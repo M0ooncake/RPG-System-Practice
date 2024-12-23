@@ -38,7 +38,7 @@ void DisplayCharacter(const Character& character)
             << "||   Speed: " << character.stats.speed << "\n"
             << "||   Health: " << character.stats.health << "\n"
             << "||  Max Health: " << character.stats.maxHealth << "\n";
-    std::cout << "<======================================>\n";
+    
 } // Hopefully this will print it nicely
 
 
@@ -49,7 +49,9 @@ void DisplayCharacter(const Character& character)
  */
 void AddItemToInventory(Character& character, const Item& item)
 {
+    
     character.inventory.push_back(item);
+    std::cout << "<======================================>\n";
     std::cout << item.name << " Added to " << character.name << "'s inventory. \n";
 }
 
@@ -61,7 +63,7 @@ void AddItemToInventory(Character& character, const Item& item)
  */
 void RemoveItemFromInventory(Character& character, const std::string& itemName)
 {
-    
+    std::cout << "<======================================>\n";
     // The lambda function compares the item.name with the provided itemName
     auto it = std::find_if(    // type auto in case that changes over time
         character.inventory.begin(),           // i.e weapon, consumable
@@ -90,13 +92,13 @@ void RemoveItemFromInventory(Character& character, const std::string& itemName)
  */
 void DisplayCharacterInventory(const Character& character)
 {
+    std::cout << "<======================================>\n";
     // No sense in printing nothing
     if (character.inventory.empty())
     {
         std::cout << character.name << "'s inventory is empty.\n";
         return;
     }
-    std::cout << "<======================================>\n";
     std::cout << "|| " << character.name << "'s Inventory:\n";
     // Debug complained about comparing between int and unsigned long long. Which I guess is fair
     for (unsigned long long i = 0; i < character.inventory.size(); ++i)
@@ -106,13 +108,34 @@ void DisplayCharacterInventory(const Character& character)
                   << "||  (Value: " << item.value
                   << "|| , Weight: " << item.weight << ")\n";
     }
-    std::cout << "<======================================>\n";
+    
 }
 
-void ApplyDamage(const Character& character, const int damage)
+void DisplayCharacterWeapons(const Character& character)
+{
+    std::cout << "<======================================>\n";
+    if (character.inventory.empty())
+    {
+        std::cout <<  character.name << "'s inventory is empty!\n";
+    }
+
+    std::cout << "|| " << character.name << "'s weapons:\n";
+
+    for (unsigned long long i = 0; i < character.inventory.size(); ++i)
+    {
+        const auto& weapon = character.inventory[i];
+        if(weapon.itemType == Item::ItemType::Weapon)   // only print if the item is a weapon
+        {
+            std::cout << "||   " << (i + 1) << ". " << weapon.name << "\n"; // print weapons
+                
+        }
+    }
+}
+
+void ApplyDamageToCharacter(const Character& character, const int damage)
 {
     if (damage < 0) return; // Don't heal off negative numbers
-    
+    std::cout << "<======================================>\n";
     character.stats.health -= damage; // Damage the characters health
     std::cout << character.name << " has been dealt " << damage << " damage!!!\n";
     if (character.stats.health <= 0)
@@ -121,10 +144,10 @@ void ApplyDamage(const Character& character, const int damage)
     }
 }
 
-void ApplyHeal(const Character& character, const int healing)
+void ApplyHealToCharacter(const Character& character, const int healing)
 {
     if (healing < 0) return; // Don't damage off negative numbers
-    
+    std::cout << "<======================================>\n";
     character.stats.health += healing; // Heal the characters health
     std::cout << character.name << " has been given " << healing << " healing!!!\n";
     if (character.stats.health > character.stats.maxHealth)
