@@ -35,7 +35,9 @@ public:
 
     // Logic to insert a character either ahead, or in front of another character
     void InsertBasedOffSpeed(Character& characterRef);
-    
+
+    // remove a node, like a character dying
+    void RemoveNode(Character& characterRef);
     // Print the existing Circular list
     void PrintList();
 

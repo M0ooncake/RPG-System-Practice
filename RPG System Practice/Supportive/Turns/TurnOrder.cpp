@@ -106,6 +106,45 @@ void TurnOrder::InsertBasedOffSpeed(Character& characterRef)
     }
 }
 
+void TurnOrder::RemoveNode(Character& characterRef)
+{
+    Node* temp = head;
+    Node* previousNode = nullptr;
+    if (head == nullptr)
+    {
+        std::cout << "List is empty. uh oh...\n";
+        return;
+    }
+    
+    // Special case: Check if the head node matches the character to remove
+    if (temp != nullptr && temp->character->name == characterRef.name)
+    {
+        head = temp->next;  // Change head to the next node
+        delete temp;  // Free memory
+        std::cout << characterRef.name << " has been removed from the list.\n";
+        return;
+    }
+    
+    // Traverse the list to find the character
+    while (temp != nullptr && temp->character->name != characterRef.name)
+    {
+        previousNode = temp;  // Keep track of the previous node
+        temp = temp->next;    // Move to the next node
+    }
+
+    // If the character was not found
+    if (temp == nullptr)
+    {
+        std::cout << "Character " << characterRef.name << " not found in the list.\n";
+        return;
+    }
+
+    // Now `temp` is the node to remove, and `previousNode` is the node before it
+    previousNode->next = temp->next;  // Link the previous node to the next node
+    delete temp;  // Free the memory of the removed node
+    std::cout << characterRef.name << " has been removed from the list.\n";
+}
+
 
 /**
  * Prints out the list if not empty using a Do while loop.
@@ -144,5 +183,5 @@ void TurnOrder::AdvanceTurn()
 void TurnOrder::GetActiveTurn()
 {
     std::cout << "<======================================>\n";
-    std::cout << "|| Active Turn:  <>" << head->character->name << "<> \n";
+    std::cout << "|| " << head->character->name << "'s turn to act!!! \n";
 }

@@ -36,11 +36,12 @@ struct AttackAction
         isCritical = (rand() % 100 < 10); // 10% chance to crit :D
         // using integer based math for type safety, 
         totalDamage = baseDamage * (isCritical ? 3 : 2) / 2;
-        ApplyDamageToCharacter(*target, totalDamage);
 
         //  Print attack details
-        std::cout << "<======================================>\n";
+        //std::cout << "<======================================>\n";
         //  example "Alvaro has struct Yrsa for 34 points of damage!"
         std::cout << attacker->name << " has struck " << target->name << " for " << totalDamage << " points of damage!!\n";
+        ApplyDamageToCharacter(*target, totalDamage);
+        
     }
 };

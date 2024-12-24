@@ -4,12 +4,16 @@
 #include <iostream>
 #include "Stats.h"
 #include "../ItemRelated/Item.h"
+
+//#include "../Supportive/Turns/TurnOrder.h"
+
 /*
  * Various things a character would need to have in order to
  * exist in this.
  */
 struct Character
 {
+    
     std::string name;
     int level;
     float experience;
@@ -25,6 +29,7 @@ struct Character
     classType characterClass; // Declare a member variable of this enum type
 
     Stats stats;
+    bool isNPC;
     std::vector<Item*> inventory; /* Make it a vector, so it can be expanded or
                                     shrunk without issue
                                  */
@@ -43,6 +48,8 @@ void DisplayCharacterInventory(const Character& character);
 
 void DisplayCharacterWeapons(const Character& character);
 
-void ApplyDamageToCharacter(const Character& character, const int Damage);
+void ApplyDamageToCharacter(Character& character, const int Damage);
 
 void ApplyHealToCharacter(const Character& character, const int Healing);
+
+void DestroyCharacter(Character& character);

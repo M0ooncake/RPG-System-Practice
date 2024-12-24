@@ -28,12 +28,13 @@ int main(int argc, char* argv[])
     Weapon dagger = Weapon::CreateWeapon("Dagger", 10, 5, Weapon::WeaponType::Dagger);
     Item book = CreateItem("Book", 5, 2, Item::ItemType::Misc);
     Weapon TearsOfGodSword = Weapon::CreateWeapon("Tears Of God", 500, 5, Weapon::WeaponType::Sword);
-    
+    Weapon soulRenderAxe = Weapon::CreateWeapon("Soul Render", 100, 10, Weapon::WeaponType::Axe);
     // Add the items to characters inventory
     AddItemToInventory(playerOneAlvaro->Alvaro, unityGreatSword);
     AddItemToInventory(playerOneAlvaro->Alvaro, book);
     AddItemToInventory(playerTwoStickus->Stickus, TearsOfGodSword);
-    
+    AddItemToInventory(playerThreeYrsa->Yrsa, dagger);
+    AddItemToInventory(playerFourAgnar->Agnar, soulRenderAxe);
 
     
     /*

@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "AttackAction.h"
 #include "../../ItemRelated/Weapons/Weapon.h"
+
 #include "../Turns/TurnOrder.h"
 #include <iostream>
+#include <thread>
 #include <vector>
 
 /*
@@ -19,6 +21,7 @@ struct CombatLoop
     TurnOrder combatTurnOrder;  // this list will contain every character in play
     TurnOrder enemyList;        // This list will contain any enemy character that can be attacked
     TurnOrder playerList;       // This list will hold all active players to present options like healing allies
+    std::vector<Character*> players;
     bool isCombatActive;        // Responsible for keeping combat going
     int playerSelection;
     Character* selectedEnemy;
@@ -26,15 +29,15 @@ struct CombatLoop
     // Constructor takes references to character lists and initializes the combat loop.
     CombatLoop(const std::vector<Character*>& allCharacters, 
                const std::vector<Character*>& enemies, 
-               const std::vector<Character*>& players) 
-        : isCombatActive(true)
+               const std::vector<Character*>& players)
+        : players(players), isCombatActive(true)
     {
         // Populate combatTurnOrder with all characters.
         for (Character* character : allCharacters)
         {
             combatTurnOrder.InsertBasedOffSpeed(*character);
         }
-
+        
         // Populate enemyList with enemies.
         for (Character* enemy : enemies)
         {
@@ -45,22 +48,40 @@ struct CombatLoop
         for (Character* player : players)
         {
             playerList.InsertAtEnd(*player);
+            
         }
     }
 
     void MainLoop()
     {
+        
         do
         {
+            if (combatTurnOrder.head == nullptr)
+                std::cout << "Their dead, handle this outcome \n"; 
             //Firstly show active enemies
             PrintEnemyCharacters(); 
 
             // Print out the active player's turn
             combatTurnOrder.GetActiveTurn();
 
-            PresentPlayerOptions();
+            Node* currentCharacter = combatTurnOrder.head;
+            if (currentCharacter->character->isNPC == true)
+            {
+                
+                SelectRandomPlayer();
+                
+                
+            }
+            else
+            {
+                PresentPlayerOptions();
+                
+            }
+
+            std::cout << "Advancing to the next turn...\n";
             
-            
+            combatTurnOrder.AdvanceTurn();
         }
         while (isCombatActive == true);
     }
@@ -71,8 +92,9 @@ struct CombatLoop
      */
     void PrintEnemyCharacters()
     {
-        std::cout << "<======================================>\n";
-        std::cout << "|| Active enemies on the field!\n";
+        //std::cout << "<======================================>\n";
+        std::cout << "<====> Active enemies on the field! <====>\n";
+        //std::cout << "|| Active enemies on the field!\n";
         enemyList.PrintList();
         
     }
@@ -82,10 +104,19 @@ struct CombatLoop
      */
     void PresentPlayerOptions()
     {
+        /*Node* currentCharacter = combatTurnOrder.head;
+        if (currentCharacter->character->isNPC == true)
+        {
+            SelectRandomPlayer();
+            GameDelay(2);
+            return;
+        }*/
+        
         playerSelection = 0; // Reset the players selection upon call
         std::cout << "<======================================>\n";
         std::cout << "|| Select Desired Action\n"
                     << "|| 1. Attack \n";
+        std::cout << "---> ";
         std::cin >> playerSelection;
 
         switch (playerSelection)
@@ -106,7 +137,8 @@ struct CombatLoop
         std::cout << "<======================================>\n";
         std::cout << "|| Select Enemy Target! \n";
         enemyList.PrintList(); // Show available targets
-        
+
+        std::cout << "---> ";
         std::cin >> playerSelection;    // take input
 
         // Validate input and get the target
@@ -142,18 +174,26 @@ struct CombatLoop
     }
     Weapon* SelectWeaponFromInventory(Character& character)
     {
+
+        if (character.isNPC == true)
+        {
+            return dynamic_cast<Weapon*>(character.inventory[0]); // Attack with the first item in the inventory
+        }
+        
         DisplayCharacterWeapons(character);
         std::cout << "<======================================>\n";
         // Check if the inventory is empty
         if (character.inventory.empty())
         {
             std::cout << "No weapons available to select.\n";
+            SelectWeaponFromInventory(character);
             return nullptr;
         }
 
         // Get player input
         unsigned int selectedIndex; // cant be negative
         std::cout << "Select a weapon to attack with (enter the number): ";
+        std::cout << "---> ";
         std::cin >> selectedIndex;
 
         // Validate input
@@ -164,37 +204,26 @@ struct CombatLoop
         }
 
         // Check if selected item is a weapon
-        Item* selectedItem = character.inventory[selectedIndex - 1];    // changed to auto instead of Item& reverted
+        Item* selectedItem = character.inventory[selectedIndex - 1];   
         
-        std::cout << "You selected item: " << selectedItem->name << "\n";  // Debugging line, which triggers fine, selection works
+        //std::cout << "You selected item: " << selectedItem->name << "\n";  
         
        
-        selectedItem->printDetails();
-        // if you try to select the book in slot 2 this triggers. which makes sense. So selection is a weapon
+        //selectedItem->printDetails();
+        
         if (selectedItem->itemType != Item::ItemType::Weapon)
         {
             std::cout << "Selected item is not a weapon. Please select a valid weapon.\n";
             return nullptr;
         }
-        std::cout << "Item type: " << (selectedItem->itemType == Item::ItemType::Weapon ? "Weapon" : "Not Weapon") << "\n";
-        /* Cast to Weapon* and return
-         * Something has to be wrong with this... it just doesn't work as it should. it seems like its always returning
-         * a nullptr. But why? I'm going to try dynamic casting before returning.
-         * return dynamic_cast<Weapon*>(&selectedItem); // old code
-         * if (auto weapon = dynamic_cast<Weapon*>(seekItem.get())) this code snipped is used in main. im going to adapt it
-         */
-        
-        // lol see what this does. Probs a memory address?
-        //std::cout << dynamic_cast<Weapon*>(&selectedItem) << " printed out the dynamic cast\n"; 
-        // indeed, it yields 00000000000000. So the dynamic cast doesn't work. But why? I dynamic-cast this same thing
-        // elsewhere and it works fine.
 
         Weapon* chosenWeapon = dynamic_cast<Weapon*>(selectedItem);
 
-        std::cout << "Dynamic cast to chosenWeapon result: " << chosenWeapon << "\n";
+        
         
         return dynamic_cast<Weapon*>(selectedItem); // adding breakpoint
     }
+    
     /**
      * This function should get the head of the turn order and print options for what weapon
      * to attack with, then attack
@@ -214,7 +243,7 @@ struct CombatLoop
             std::cout << "Active character is null.\n";
             return;
         }
-
+        
         // Loop until the player selects a valid weapon
         // Dear lord something is FUCKED real good.
         // I have gotten lost in the sauce of pointers real bad. 
@@ -230,14 +259,40 @@ struct CombatLoop
             else break;
         }
         
-        std::cout << characterActive->name << " selected " << selectedWeapon->name << " to attack with.\n";
+        //std::cout << characterActive->name << " selected " << selectedWeapon->name << " to attack with.\n";
 
         
         AttackAction attackAction(characterActive, selectedWeapon, selectedEnemy);  // Initialize attack
         attackAction.CalculateAndDealDamage();  // Perform the attack!
-           
-    }
-    
         
+    }
+
+    
+    void SelectRandomPlayer()
+    {
+        // going to try and quickly add some logic for an enemy turn player turn switcher
+        if(players.empty()) return;
+        Character* NPC = combatTurnOrder.head->character;
+        // Check if the current turn character is in the enemy list
+        
+        int enemySelection = rand() % players.size();
+        Weapon* NPCWeapon = SelectWeaponFromInventory(*NPC);
+        Character* NPCTarget = players[enemySelection];
+        
+        
+        std::cout << NPC->name << " is about to strike " << NPCTarget->name << " with a " << NPCWeapon->name << "!!!\n";
+        
+        
+        AttackAction attackAction(NPC, NPCWeapon, NPCTarget); // mayhaps work??? UwU?
+       
+        attackAction.CalculateAndDealDamage();
+        
+    }
+
+    void GameDelay(int seconds)
+    {
+        //std::this_thread::sleep_for(std::chrono::seconds(seconds)); // pause for X seconds to allow player to read
+    }
+
     
 };

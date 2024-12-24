@@ -13,6 +13,7 @@ public:
             10, 8, 10,  // strength, dexterity, wisdom,
             12, 15, 30, 30 // intelligence, speed, health, maxHealth.
         },
+        false,  // isNPC flag
         {} // Inventory
      };
 };

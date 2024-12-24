@@ -17,7 +17,9 @@ struct Weapon : public Item
         Dagger,
         Bow,
         Crossbow,
-        Spear
+        Spear,
+        Axe,
+        GreatAxe
     };
 
     WeaponType weaponType;

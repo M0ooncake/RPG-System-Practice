@@ -1,5 +1,6 @@
 ﻿#include "Character.h"
 
+
 /**
  * Converts a Character::classType enum value to its string representation.
  * @param classType The Character::classType value to convert.
@@ -141,15 +142,16 @@ void DisplayCharacterWeapons(const Character& character)
     }
 }
 
-void ApplyDamageToCharacter(const Character& character, const int damage)
+void ApplyDamageToCharacter(Character& character, const int damage)
 {
     if (damage < 0) return; // Don't heal off negative numbers
-    std::cout << "<======================================>\n";
+    //std::cout << "<======================================>\n";
     character.stats.health -= damage; // Damage the characters health
-    std::cout << character.name << " has been dealt " << damage << " damage!!!\n";
+    //std::cout << character.name << " has been dealt " << damage << " damage!!!\n";
     if (character.stats.health <= 0)
     {
         std::cout << character.name << " has reached 0 health!\n";
+        DestroyCharacter(character);
     }
 }
 
@@ -164,4 +166,14 @@ void ApplyHealToCharacter(const Character& character, const int healing)
         std::cout << character.name << " has exceeded maxHealth!\n";
         std::cout << "Clamping health to " << character.stats.maxHealth << "\n";
     }
+}
+
+
+void DestroyCharacter(Character& character)
+{
+    std::cout << "<======================================>\n";
+    std::cout << character.name << " has been killed!!\n";
+    
+    //character = nullptr;
+    //delete &character;   // mayhaps this works? probs not though
 }

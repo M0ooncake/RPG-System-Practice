@@ -27,7 +27,7 @@ Weapon Weapon::CreateWeapon(const std::string& name, int value, int weight, Weap
             range = 5;  // Melee range
         break;
         case WeaponType::GreatSword:
-            attackPower = 8;
+            attackPower = 12;
             range = 5;
         break;
         case WeaponType::Dagger:
@@ -35,16 +35,22 @@ Weapon Weapon::CreateWeapon(const std::string& name, int value, int weight, Weap
             range = 5;
         break;
         case WeaponType::Bow:
-            attackPower = 15;
+            attackPower = 10;
             range = 60;  // Long range like dnd 60ft
         break;
         case WeaponType::Crossbow:
-            attackPower = 15;
+            attackPower = 10;
             range = 40;
         break;
         case WeaponType::Spear:
             attackPower = 8;
             range = 10;
+        break;
+        case WeaponType::Axe:
+            attackPower = 6;
+        break;
+        case WeaponType::GreatAxe:
+            attackPower = 12;
         break;
         default:
             std::cerr << "Invalid WeaponType!" << "\n";
