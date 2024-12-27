@@ -1,5 +1,5 @@
 ﻿#include "TurnOrder.h"
-
+#include "../../Characters/Character.h"
 
 /**
  * Constructor to make sure it initializes first
@@ -110,39 +110,46 @@ void TurnOrder::RemoveNode(Character& characterRef)
 {
     Node* temp = head;
     Node* previousNode = nullptr;
+    Node* start = temp; // Keep track of the starting node
     if (head == nullptr)
     {
         std::cout << "List is empty. uh oh...\n";
         return;
     }
     
-    // Special case: Check if the head node matches the character to remove
-    if (temp != nullptr && temp->character->name == characterRef.name)
+    // Check if the head node matches the character to remove
+    if (temp->character->name == characterRef.name)
     {
-        head = temp->next;  // Change head to the next node
-        delete temp;  // Free memory
+        // Special case: Removing the head
+        if (temp->next == temp) { 
+            // Only one node in the list
+            head = nullptr;
+        } else {
+            head = temp->next; // Update the head
+            Node* last = temp;
+            while (last->next != temp) {
+                last = last->next;
+            }
+            last->next = head; // Update the last node's next pointer
+        }
+        delete temp; // Free memory
         std::cout << characterRef.name << " has been removed from the list.\n";
         return;
     }
     
-    // Traverse the list to find the character
-    while (temp != nullptr && temp->character->name != characterRef.name)
-    {
-        previousNode = temp;  // Keep track of the previous node
-        temp = temp->next;    // Move to the next node
-    }
+    // Traverse the circular list to find the character
+    do {
+        previousNode = temp;
+        temp = temp->next;
+        if (temp->character->name == characterRef.name) {
+            previousNode->next = temp->next; // Bypass the node to remove
+            delete temp; // Free the memory
+            std::cout << characterRef.name << " has been removed from the list.\n";
+            return;
+        }
+    } while (temp != start); // Stop if we've looped back to the start
 
-    // If the character was not found
-    if (temp == nullptr)
-    {
-        std::cout << "Character " << characterRef.name << " not found in the list.\n";
-        return;
-    }
-
-    // Now `temp` is the node to remove, and `previousNode` is the node before it
-    previousNode->next = temp->next;  // Link the previous node to the next node
-    delete temp;  // Free the memory of the removed node
-    std::cout << characterRef.name << " has been removed from the list.\n";
+    std::cout << "Character " << characterRef.name << " not found in the list.\n";
 }
 
 

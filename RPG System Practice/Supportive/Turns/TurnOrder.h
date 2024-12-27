@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 
-#include "../../Characters/Character.h"
+struct Character; // forward delcoration
 
 /**
  * As this file currently stands, the data entered into a Node is an int. I am going to

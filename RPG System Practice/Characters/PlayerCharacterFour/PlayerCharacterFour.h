@@ -14,6 +14,7 @@ public:
             12, 15, 30, 30 // intelligence, speed, health, maxHealth.
         },
         false,  // isNPC flag
-        {} // Inventory
+        {}// Inventory
+        
      };
 };

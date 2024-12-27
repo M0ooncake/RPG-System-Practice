@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Stats.h"
 #include "../ItemRelated/Item.h"
+#include "../Supportive/CombatRelated/CombatLoop.h"
 
 //#include "../Supportive/Turns/TurnOrder.h"
 
@@ -27,12 +28,14 @@ struct Character
     };
 
     classType characterClass; // Declare a member variable of this enum type
-
+    
     Stats stats;
     bool isNPC;
     std::vector<Item*> inventory; /* Make it a vector, so it can be expanded or
                                     shrunk without issue
                                  */
+    
+   
 };
 
 std::string CharacterClassToString(Character::classType classType);
@@ -48,8 +51,8 @@ void DisplayCharacterInventory(const Character& character);
 
 void DisplayCharacterWeapons(const Character& character);
 
-void ApplyDamageToCharacter(Character& character, const int Damage);
+void ApplyDamageToCharacter(Character& character, const int Damage, CombatLoop& combatPassToDestroy);
 
 void ApplyHealToCharacter(const Character& character, const int Healing);
 
-void DestroyCharacter(Character& character);
+void DestroyCharacter(Character& character, CombatLoop& combatToRemoveFrom);
