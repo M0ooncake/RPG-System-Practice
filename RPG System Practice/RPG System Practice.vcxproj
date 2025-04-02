@@ -383,6 +383,7 @@
     <ClCompile Include="ItemRelated\Weapons\Weapon.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuSystem\MenuCore.cpp" />
+    <ClCompile Include="MenuSystem\MenuParent.cpp" />
     <ClCompile Include="Supportive\CombatRelated\AttackAction.cpp" />
     <ClCompile Include="Supportive\CombatRelated\CombatLoop.cpp" />
     <ClCompile Include="Supportive\Turns\TurnOrder.cpp" />
@@ -397,6 +398,7 @@
     <ClInclude Include="ItemRelated\Item.h" />
     <ClInclude Include="ItemRelated\Weapons\Weapon.h" />
     <ClInclude Include="MenuSystem\MenuCore.h" />
+    <ClInclude Include="MenuSystem\MenuParent.h" />
     <ClInclude Include="Supportive\CombatRelated\AttackAction.h" />
     <ClInclude Include="Supportive\CombatRelated\CombatLoop.h" />
     <ClInclude Include="Supportive\Turns\TurnOrder.h" />

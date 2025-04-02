@@ -1,6 +1,10 @@
 ﻿#pragma once
 #include <string>
+#include <unordered_map>
+#include <iostream>
+#include <stack>
 
+#include "MenuParent.h"
 /*
  * The idea here is to have a struct that allows for stacking menus.
  * Since this is outside an Engine, I cannot exactly have a stack of game objects,
@@ -24,9 +28,34 @@
  * a print like that.
  * That would rapidly end up having SOO many different functions, that are also very similar.
  */
-struct MenuCore
+struct MenuCoreBackend
 {
-    std::string horizontalBar = "<======================================>\n";
-
+ 
+    
     
 };
+
+class MenuCore
+{
+public:
+
+
+private:
+ 
+ 
+};
+// Taking inspiration from the item creation process.
+/**
+ * Goal of this Variable is to be able to have it hold references to all the menus that have been created.
+ * In an attempt to be able to access any menu in an instant. This could introduce
+ * to much overhead if all the menus still exist in memory, but I'll find out I guess.
+ */
+extern std::unordered_map<int, std::unique_ptr<MenuParent>> MenuRegistry;
+
+/**
+ * Goal of this is to have a globally accessible stack for the menus.
+ */
+extern std::stack<MenuParent> MenuStack;
+
+
+extern int menuID; // Counter for Unique Menu ID's. Though not sure if this will helpful.
